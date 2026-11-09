@@ -1,6 +1,5 @@
 package com.priyansh.cinebook.Service;
 
-import com.priyansh.cinebook.DTO.LoginDetailsDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
