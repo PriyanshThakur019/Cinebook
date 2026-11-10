@@ -1,22 +1,31 @@
 package com.priyansh.cinebook.Service;
 
+import com.priyansh.cinebook.DTO.BookingDetailsDTO;
 import com.priyansh.cinebook.DTO.ShowDetailsDTO;
+import com.priyansh.cinebook.Entity.BookingDetails;
 import com.priyansh.cinebook.Entity.ShowDetails;
+import com.priyansh.cinebook.Repository.BookingDetailsRepo;
 import com.priyansh.cinebook.Repository.ShowDetailsRepo;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
 public class ShowService {
     @Autowired
     private ShowDetailsRepo showDetailsRepo;
+    @Autowired
+    private BookingDetailsRepo bookingDetailsRepo;
 
     public List<ShowDetails> getAllShowDetails() {
         return showDetailsRepo.findAll();
@@ -45,5 +54,37 @@ public class ShowService {
 
         showDetailsRepo.save(showDetails);
         return showDetails;
+    }
+
+    public BookingDetails bookShow(BookingDetailsDTO bookingDetailsDTO) {
+        BookingDetails bookedDetails = null;
+        ShowDetails showDetails = showDetailsRepo.findByShowDetailId(bookingDetailsDTO.getShowDetailId()).orElse(null);
+
+        if (ObjectUtils.isEmpty(showDetails)) {
+            log.error("show doesn't exist");
+            return bookedDetails;
+        }
+
+        List<BookingDetails> bookingDetailsList = bookingDetailsRepo.findByUserName(bookingDetailsDTO.getUserName())
+                .orElse(new ArrayList<>());
+
+        for (BookingDetails bookingDetails : bookingDetailsList) {
+            if (Objects.equals(bookingDetails.getShowDetails().getShowDetailId(), bookingDetailsDTO.getShowDetailId())) {
+                bookedDetails = bookingDetails;
+                break;
+            }
+        }
+
+        if (!ObjectUtils.isEmpty(bookedDetails)) {
+            log.error("booking already exist");
+            return bookedDetails;
+        }
+
+        return BookingDetails.builder()
+                .showDetails(showDetails)
+                .userName(bookingDetailsDTO.getUserName())
+                .bookingCost(bookingDetailsDTO.getBookingCost())
+                .seatNo(bookedDetails.getSeatNo())
+                .build();
     }
 }

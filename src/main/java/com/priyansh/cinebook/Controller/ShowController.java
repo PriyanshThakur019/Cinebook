@@ -1,6 +1,8 @@
 package com.priyansh.cinebook.Controller;
 
+import com.priyansh.cinebook.DTO.BookingDetailsDTO;
 import com.priyansh.cinebook.DTO.ShowDetailsDTO;
+import com.priyansh.cinebook.Entity.BookingDetails;
 import com.priyansh.cinebook.Entity.ShowDetails;
 import com.priyansh.cinebook.Service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +26,10 @@ public class ShowController {
     @PostMapping("/registerShow")
     public ShowDetails registerShow(@RequestBody ShowDetailsDTO showDetailsDTO) {
         return showService.registerShow(showDetailsDTO);
+    }
+
+    @PostMapping("/bookShow")
+    public BookingDetails bookShow(@RequestBody BookingDetailsDTO bookingDetailsDTO) {
+        return showService.bookShow(bookingDetailsDTO);
     }
 }

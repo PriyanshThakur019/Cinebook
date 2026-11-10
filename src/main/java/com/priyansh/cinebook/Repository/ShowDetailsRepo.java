@@ -16,4 +16,6 @@ public interface ShowDetailsRepo extends JpaRepository<ShowDetails, Long> {
 
     @Query(value = "SELECT nextval('\"ShowIdSequence\"')", nativeQuery = true)
     Long generateNextShowId();
+
+    Optional<ShowDetails> findByShowDetailId(Long showDetailId);
 }
