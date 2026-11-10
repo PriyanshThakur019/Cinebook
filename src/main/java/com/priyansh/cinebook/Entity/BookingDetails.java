@@ -35,4 +35,12 @@ public class BookingDetails {
 
     @Column(name = "\"SeatNo\"", nullable = false, length = 10)
     private String seatNo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "\"HallToShowMappingId\"")
+    private HallToShowMapping hallToShowMapping;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "\"HallSeatId\"")
+    private HallSeats hallSeat;
 }

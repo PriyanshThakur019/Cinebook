@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -97,5 +98,18 @@ public class ShowService {
 
     public List<BookingDetails> findAllBookings() {
         return bookingDetailsRepo.findAll();
+    }
+
+    public List<ShowDetails> getAllFutureShowDetails() {
+        List<ShowDetails> allShowDetailsList = getAllShowDetails();
+        List<ShowDetails> futureShowDetailList = new ArrayList<>();
+
+        for (ShowDetails showDetails : allShowDetailsList) {
+            if (showDetails.getShowStartTime().isAfter(LocalDateTime.now())) {
+                futureShowDetailList.add(showDetails);
+            }
+        }
+
+        return futureShowDetailList;
     }
 }

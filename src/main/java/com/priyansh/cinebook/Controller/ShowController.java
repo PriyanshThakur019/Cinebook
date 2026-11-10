@@ -23,6 +23,11 @@ public class ShowController {
         return showService.getAllShowDetails();
     }
 
+    @GetMapping("/findAllFutureShows")
+    public List<ShowDetails> findAllFutureShows() {
+        return showService.getAllFutureShowDetails();
+    }
+
     @GetMapping("/findAllBookings")
     public List<BookingDetails> findAllBookings() {
         return showService.findAllBookings();
