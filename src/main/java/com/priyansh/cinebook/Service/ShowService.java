@@ -38,6 +38,7 @@ public class ShowService {
                 .showName(showDetailsDTO.getShowName())
                 .showEndTime(showDetailsDTO.getShowEndTime())
                 .showId(showId)
+                .posterURL(showDetailsDTO.getPosterURL())
                 .build();
 
 

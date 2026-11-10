@@ -2,8 +2,11 @@ package com.priyansh.cinebook.Service;
 
 import ch.qos.logback.core.util.StringUtil;
 import com.priyansh.cinebook.DTO.UserDetailsDTO;
+import com.priyansh.cinebook.Entity.BookingDetails;
 import com.priyansh.cinebook.Entity.LoginDetails;
+import com.priyansh.cinebook.Entity.ShowDetails;
 import com.priyansh.cinebook.Entity.UserDetails;
+import com.priyansh.cinebook.Repository.BookingDetailsRepo;
 import com.priyansh.cinebook.Repository.LoginDetailsRepo;
 import com.priyansh.cinebook.Repository.UserDetailsRepo;
 import jakarta.transaction.Transactional;
@@ -12,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -24,6 +29,8 @@ public class UserService {
     private UserDetailsRepo userDetailsRepo;
     @Autowired
     private LoginDetailsRepo loginDetailsRepo;
+    @Autowired
+    private BookingDetailsRepo bookingDetailsRepo;
 
 
     public UserDetails getUserDetailsByLoginCreds(String username, String password) {
@@ -72,5 +79,31 @@ public class UserService {
 
     public List<UserDetails> getAllUserDetails() {
         return userDetailsRepo.findAll();
+    }
+
+    public List<BookingDetails> getAllBookingsByUsername(String username) {
+        return bookingDetailsRepo.findByUserName(username).orElse(new ArrayList<>());
+    }
+
+    public List<BookingDetails> getAllFutureBookingsByUsername(String username) {
+        List<BookingDetails> bookingDetailsList = getAllBookingsByUsername(username);
+        for (BookingDetails bookingDetails : bookingDetailsList) {
+            ShowDetails showDetails = bookingDetails.getShowDetails();
+            if (showDetails.getShowStartTime().isAfter(LocalDateTime.now())) {
+                bookingDetailsList.add(bookingDetails);
+            }
+        }
+        return bookingDetailsList;
+    }
+
+    public List<BookingDetails> getAllPastBookingsByUsername(String username) {
+        List<BookingDetails> bookingDetailsList = getAllBookingsByUsername(username);
+        for (BookingDetails bookingDetails : bookingDetailsList) {
+            ShowDetails showDetails = bookingDetails.getShowDetails();
+            if (showDetails.getShowStartTime().isBefore(LocalDateTime.now())) {
+                bookingDetailsList.add(bookingDetails);
+            }
+        }
+        return bookingDetailsList;
     }
 }

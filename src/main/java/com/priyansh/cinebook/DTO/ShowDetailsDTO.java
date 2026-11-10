@@ -21,4 +21,6 @@ public class ShowDetailsDTO {
 
     @NonNull
     private LocalDateTime showEndTime;
+
+    private String posterURL;
 }

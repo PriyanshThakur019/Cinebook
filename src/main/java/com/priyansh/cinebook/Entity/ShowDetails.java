@@ -36,4 +36,7 @@ public class ShowDetails {
 
     @Column(name = "\"ShowEndTime\"", nullable = false)
     private LocalDateTime showEndTime;
+
+    @Column(name = "\"PosterURL\"")
+    private String posterURL;
 }

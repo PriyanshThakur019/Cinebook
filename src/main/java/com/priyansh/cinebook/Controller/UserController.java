@@ -1,6 +1,7 @@
 package com.priyansh.cinebook.Controller;
 
 import com.priyansh.cinebook.DTO.UserDetailsDTO;
+import com.priyansh.cinebook.Entity.BookingDetails;
 import com.priyansh.cinebook.Entity.UserDetails;
 import com.priyansh.cinebook.Service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,5 +30,20 @@ public class UserController {
     @GetMapping("/getAllUsers")
     public List<UserDetails> getAllUserDetails() {
         return userService.getAllUserDetails();
+    }
+
+    @GetMapping("/getAllBookingsByUsername")
+    public List<BookingDetails> getAllBookingsByUsername(@RequestParam String username) {
+        return userService.getAllBookingsByUsername(username);
+    }
+
+    @GetMapping("/getAllFutureBookingsByUsername")
+    public List<BookingDetails> getAllFutureBookingsByUsername(@RequestParam String username) {
+        return userService.getAllFutureBookingsByUsername(username);
+    }
+
+    @GetMapping("/getAllPastBookingsByUsername")
+    public List<BookingDetails> getAllPastBookingsByUsername(@RequestParam String username) {
+        return userService.getAllPastBookingsByUsername(username);
     }
 }
