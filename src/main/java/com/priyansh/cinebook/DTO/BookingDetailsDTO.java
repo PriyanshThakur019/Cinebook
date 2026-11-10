@@ -14,7 +14,7 @@ public class BookingDetailsDTO {
     @NonNull
     private Long showDetailId;
     @NonNull
-    private String userName;
+    private String username;
     @NonNull
     private BigDecimal BookingCost;
 

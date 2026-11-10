@@ -65,7 +65,7 @@ public class ShowService {
             return bookedDetails;
         }
 
-        List<BookingDetails> bookingDetailsList = bookingDetailsRepo.findByUserName(bookingDetailsDTO.getUserName())
+        List<BookingDetails> bookingDetailsList = bookingDetailsRepo.findByUserName(bookingDetailsDTO.getUsername())
                 .orElse(new ArrayList<>());
 
         for (BookingDetails bookingDetails : bookingDetailsList) {
@@ -82,7 +82,7 @@ public class ShowService {
 
         return BookingDetails.builder()
                 .showDetails(showDetails)
-                .userName(bookingDetailsDTO.getUserName())
+                .userName(bookingDetailsDTO.getUsername())
                 .bookingCost(bookingDetailsDTO.getBookingCost())
                 .seatNo(bookedDetails.getSeatNo())
                 .build();
