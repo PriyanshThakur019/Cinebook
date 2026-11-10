@@ -80,11 +80,22 @@ public class ShowService {
             return bookedDetails;
         }
 
-        return BookingDetails.builder()
+        bookedDetails = BookingDetails.builder()
                 .showDetails(showDetails)
                 .userName(bookingDetailsDTO.getUsername())
                 .bookingCost(bookingDetailsDTO.getBookingCost())
-                .seatNo(bookedDetails.getSeatNo())
+                .seatNo(bookingDetailsDTO.getSeatNo())
                 .build();
+
+        log.info("booking details information collected");
+        log.info("saving booking details");
+
+        bookingDetailsRepo.save(bookedDetails);
+
+        return bookedDetails;
+    }
+
+    public List<BookingDetails> findAllBookings() {
+        return bookingDetailsRepo.findAll();
     }
 }

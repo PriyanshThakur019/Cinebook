@@ -23,6 +23,11 @@ public class ShowController {
         return showService.getAllShowDetails();
     }
 
+    @GetMapping("/findAllBookings")
+    public List<BookingDetails> findAllBookings() {
+        return showService.findAllBookings();
+    }
+
     @PostMapping("/registerShow")
     public ShowDetails registerShow(@RequestBody ShowDetailsDTO showDetailsDTO) {
         return showService.registerShow(showDetailsDTO);
