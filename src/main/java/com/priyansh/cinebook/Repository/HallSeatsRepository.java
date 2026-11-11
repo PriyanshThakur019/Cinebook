@@ -15,4 +15,9 @@ public interface HallSeatsRepository
     );
 
     long countByHallDetails_HallDetailsIdAndIsActiveTrue(Long hallId);
+    boolean existsByHallDetails_HallDetailsIdAndSeatNumber(
+            Long hallId,
+            String seatNumber
+    );
+
 }

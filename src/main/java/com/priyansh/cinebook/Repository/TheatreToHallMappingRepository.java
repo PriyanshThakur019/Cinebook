@@ -18,4 +18,5 @@ public interface TheatreToHallMappingRepository
     Optional<TheatreToHallMapping> findByHallDetails_HallDetailsId(
             Long hallId
     );
+    boolean existsByHallDetails_HallDetailsIdAndIsActiveTrue(Long hallId);
 }
