@@ -77,4 +77,13 @@ public class HallToShowMappingService {
                 .map(mappingMapper::toResponseDTO)
                 .toList();
     }
+
+    @Transactional(readOnly = true)
+        public List<HallToShowMappingResponseDTO> getAllHallToShowMappings() {
+        return mappingRepository
+                .findAll()
+                .stream()
+                .map(mappingMapper::toResponseDTO)
+                .toList();
+    }
 }

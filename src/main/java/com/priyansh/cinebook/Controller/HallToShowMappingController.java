@@ -30,4 +30,9 @@ public class HallToShowMappingController {
 
         return mappingService.getShowsByHall(hallId);
     }
+
+    @GetMapping("/findAllHallToShowMappings")
+    public List<HallToShowMappingResponseDTO> getAllHallToShowMappings() {
+        return mappingService.getAllHallToShowMappings();
+    }
 }

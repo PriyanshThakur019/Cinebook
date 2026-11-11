@@ -3,8 +3,10 @@ package com.priyansh.cinebook.Service;
 import com.priyansh.cinebook.DTO.BookingDetailsDTO;
 import com.priyansh.cinebook.DTO.ShowDetailsDTO;
 import com.priyansh.cinebook.Entity.BookingDetails;
+import com.priyansh.cinebook.Entity.HallToShowMapping;
 import com.priyansh.cinebook.Entity.ShowDetails;
 import com.priyansh.cinebook.Repository.BookingDetailsRepo;
+import com.priyansh.cinebook.Repository.HallToShowMappingRepository;
 import com.priyansh.cinebook.Repository.ShowDetailsRepo;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -27,6 +29,8 @@ public class ShowService {
     private ShowDetailsRepo showDetailsRepo;
     @Autowired
     private BookingDetailsRepo bookingDetailsRepo;
+    @Autowired
+    private HallToShowMappingRepository hallToShowMappingRepository;
 
     public List<ShowDetails> getAllShowDetails() {
         return showDetailsRepo.findAll();
@@ -111,5 +115,30 @@ public class ShowService {
         }
 
         return futureShowDetailList;
+    }
+
+    public List<ShowDetails> findAllListedShows() {
+        List<ShowDetails> listedShowDetailsList = new ArrayList<>();
+
+        List<HallToShowMapping> hallToShowMappings = hallToShowMappingRepository.findAll();
+        for (HallToShowMapping mapping : hallToShowMappings) {
+            ShowDetails showDetails = mapping.getShowDetails();
+            if (!ObjectUtils.isEmpty(showDetails) && !listedShowDetailsList.contains(showDetails)) {
+                listedShowDetailsList.add(showDetails);
+            }
+        }
+        return listedShowDetailsList;
+    }
+
+    public List<ShowDetails> findAllFutureListedShows() {
+        List<ShowDetails> listedShowDetailsList = findAllListedShows();
+        List<ShowDetails> futureListedShowDetailsList = new ArrayList<>();
+
+        for (ShowDetails showDetails : listedShowDetailsList) {
+            if (showDetails.getShowStartTime().isAfter(LocalDateTime.now())) {
+                futureListedShowDetailsList.add(showDetails);
+            }
+        }
+        return futureListedShowDetailsList;
     }
 }

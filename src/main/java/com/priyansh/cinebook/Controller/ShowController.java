@@ -23,9 +23,19 @@ public class ShowController {
         return showService.getAllShowDetails();
     }
 
+    @GetMapping("/findAllListedShows")
+    public List<ShowDetails> findAllListedShows() {
+        return showService.findAllListedShows();
+    }
+
     @GetMapping("/findAllFutureShows")
     public List<ShowDetails> findAllFutureShows() {
         return showService.getAllFutureShowDetails();
+    }
+
+    @GetMapping("/findAllFutureListedShows")
+    public List<ShowDetails> findAllFutureListedShows() {
+        return showService.findAllFutureListedShows();
     }
 
     @GetMapping("/findAllBookings")
