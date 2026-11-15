@@ -30,7 +30,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class SecurityConfig {
 
-    @Value("${cinebook.security.allowed-origins:http://localhost:5173,http://127.0.0.1:5173,https://cinebook-frontend-iota.vercel.app}")
+    @Value("${cinebook.security.allowed-origins:http://localhost:5173,http://127.0.0.1:5173,https://cinebook-frontend-iota.vercel.app,https://cinebook-frontend-7t8knlabh-priyanshthakur019s-projects.vercel.app}")
     private String allowedOrigins;
 
     @Value("${cinebook.security.secure-cookies:true}")
