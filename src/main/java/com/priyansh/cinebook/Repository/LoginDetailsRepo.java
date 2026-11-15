@@ -13,6 +13,4 @@ public interface LoginDetailsRepo extends JpaRepository<LoginDetails, Long> {
     Optional<LoginDetails> findByUsername(String username);
 
     boolean existsByUsername(String username);
-
-    boolean existsByUsernameAndPassword(String username, String password);
 }

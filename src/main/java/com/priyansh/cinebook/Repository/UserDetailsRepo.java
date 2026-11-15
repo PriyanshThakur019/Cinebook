@@ -14,6 +14,8 @@ public interface UserDetailsRepo extends JpaRepository<UserDetails, Long> {
 
     Optional<UserDetails> findByLoginDetails_Username(String username);
 
+    boolean existsByEmailIgnoreCase(String email);
+
     boolean existsByMobile(String mobile);
 
     boolean existsByLoginDetails_Username(String username);
