@@ -41,8 +41,8 @@ public class UserDetails {
     @Column(name = "\"Name\"", nullable = false, length = 100)
     private String name;
 
-        @Column(name = "\"Email\"", length = 254)
-        private String email;
+    @Column(name = "\"Email\"", length = 254)
+    private String email;
 
     @Column(name = "\"Mobile\"", nullable = false, unique = true, length = 15)
     private String mobile;
