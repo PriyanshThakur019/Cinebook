@@ -30,7 +30,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class SecurityConfig {
 
-    @Value("${cinebook.security.allowed-origins:http://localhost:5173,http://127.0.0.1:5173}")
+    @Value("${cinebook.security.allowed-origins:http://localhost:5173,http://127.0.0.1:5173,https://cinebook-frontend-iota.vercel.app}")
     private String allowedOrigins;
 
     @Value("${cinebook.security.secure-cookies:true}")
@@ -156,8 +156,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(origins);
         configuration.setAllowedMethods(List.of(
                 "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of(
-                "Accept", "Content-Type", "X-XSRF-TOKEN", "X-Requested-With"));
+        configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("X-XSRF-TOKEN"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
