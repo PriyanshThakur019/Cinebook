@@ -71,8 +71,13 @@ public class AuthController {
                     UsernamePasswordAuthenticationToken.unauthenticated(
                             request.username().trim(), request.password()));
         } catch (AuthenticationException exception) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
-        }
+        System.err.println("AUTH DEBUG: Authentication failed: "
+                + exception.getClass().getSimpleName());
+        throw new ResponseStatusException(
+                HttpStatus.UNAUTHORIZED,
+                "Invalid username or password"
+        );
+    }
 
         AuthUserResponseDTO profile = authService.getProfile(authentication.getName());
         servletRequest.getSession(true);

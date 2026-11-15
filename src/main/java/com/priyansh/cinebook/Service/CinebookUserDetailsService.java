@@ -17,8 +17,17 @@ public class CinebookUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
+        System.out.println("AUTH DEBUG: Looking up username: [" + username + "]");
+
         LoginDetails loginDetails = loginDetailsRepo.findByUsername(username.trim())
-                .orElseThrow(() -> new UsernameNotFoundException("Invalid credentials"));
+                .orElseThrow(() -> {
+                    System.out.println("AUTH DEBUG: User not found");
+                    return new UsernameNotFoundException("Invalid credentials");
+                });
+
+        System.out.println("AUTH DEBUG: User found");
+        System.out.println("AUTH DEBUG: Stored password starts with BCrypt: "
+                + loginDetails.getPassword().startsWith("$2"));
 
         return User.withUsername(loginDetails.getUsername())
                 .password(loginDetails.getPassword())
